@@ -5,7 +5,7 @@ INSERT INTO Roles(nombre_rol, descripcion_rol) VALUES ('Bibliotecario', 'Rol con
 
 
 
-INTER INTO Generos(nombre_genero) VALUES ('Terror');
+INSERT INTO Generos(nombre_genero) VALUES ('Terror');
 INSERT INTO Generos(nombre_genero) VALUES ('Romance');
 INSERT INTO Generos(nombre_genero) VALUES ('Ciencia Ficcion');
 INSERT INTO Generos(nombre_genero) VALUES ('Fantasia');

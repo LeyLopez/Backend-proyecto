@@ -13,6 +13,8 @@ class AutorRuta{
 
     private misRutas(){
         this.apiAutorRuta.get("/getall", AutorControlador.obtenerAutores);
+        this.apiAutorRuta.post("/add", AutorControlador.agregarAutor);
+        this.apiAutorRuta.put("/update/:idAutor", AutorControlador.actualizarAutor);
     }
 
 

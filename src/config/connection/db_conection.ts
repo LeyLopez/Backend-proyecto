@@ -4,7 +4,7 @@ import { optionsPG } from './optionsPG';
 
 dotenv.config({path: 'variables.env'});
 
-const db_name = String(process.env.DATABBASE_NAME);
+const db_name = String(process.env.DATABASE_NAME);
 const user = String(process.env.USER);
 const port = Number(process.env.PORT);
 const server = String(process.env.SERVER);
