@@ -24,12 +24,13 @@ CREATE TABLE Libros(
     titulo_libro VARCHAR(50) NOT NULL,
     resumen_libro VARCHAR(1000) NOT NULL,
     url_portada_libro VARCHAR(500) NOT NULL,
-    tipo_libro ENUM('Libro', 'Revista', 'Comic', 'Manga', 'Periodico') NOT NULL,
+    tipo_libro VARCHAR(20) NOT NULL CHECK (tipo_libro IN ('Libro', 'Revista', 'Comic', 'Manga', 'Periodico')),
     fecha_publicacion_libro DATE NOT NULL,
     cantidad_ejemplares_libro INTEGER NOT NULL,
     id_autor INTEGER NOT NULL,
     FOREIGN KEY (id_autor) REFERENCES Autores(id_autor)
 );
+
 
 CREATE TABLE Generos_libros(
     id_libro INTEGER NOT NULL,
@@ -74,7 +75,7 @@ CREATE TABLE Prestamos(
     id_libro INTEGER NOT NULL,
     id_estado INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
     FOREIGN KEY (id_libro) REFERENCES Libros(id_libro),
     FOREIGN KEY (id_estado) REFERENCES Estados(id_estado)
@@ -96,7 +97,7 @@ CREATE TABLE Reservas(
     id_libro INTEGER NOT NULL,
     id_estado INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_usuario) REFERENCES Usuarios(id_usuario),
     FOREIGN KEY (id_libro) REFERENCES Libros(id_libro),
     FOREIGN KEY (id_estado) REFERENCES Estados(id_estado)
@@ -122,7 +123,7 @@ CREATE TABLE Historial_estados_reservas(
     id_reserva INTEGER NOT NULL,
     id_estado INTEGER NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (id_reserva) REFERENCES Reservas(id_reserva),
     FOREIGN KEY (id_estado) REFERENCES Estados(id_estado)
 );
