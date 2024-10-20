@@ -23,7 +23,7 @@ class AutorDAO{
             await pool.task(async(consulta)=>{
                 let queHacer = 1;
                 let respuBase: any;
-                const cubi = await consulta.one(SQL_AUTORES.HOW_MANY, [datos.idAutor]);
+                const cubi = await consulta.one(SQL_AUTORES.HOW_MANY_NAME_LASTNAME, [datos.nombreAutor, datos.apellidoAutor]);
                 if(cubi.existe == 0){
                     queHacer = 2;
                     respuBase = await consulta.one(SQL_AUTORES.ADD, [datos.nombreAutor, datos.apellidoAutor, datos.fechaNacimiento]);
@@ -43,7 +43,7 @@ class AutorDAO{
                         });
                         break;
                 }
-            }).catch((miError:any)=>{
+            }).catch((miError)=>{
                 console.log(miError);
                 res.status(400).json({
                     "mensaje": "No se pudo procesar la solicitud"
@@ -53,15 +53,34 @@ class AutorDAO{
 
 
 
+        protected static async borrarAutor(datos: Autor, res: Response): Promise<any>{
+            pool
+            .task((consulta)=>{
+                return consulta.result(SQL_AUTORES.DELETE, [datos.idAutor]);
+            })
+            .then((respuesta)=>{
+                res.status(200).json({
+                    "mensaje": "Autor eliminado",
+                    info: respuesta.rowCount,
+                });
+            })
+            .catch((miError)=>{
+                console.log(miError);
+                res.status(400).json({
+                    respuesta: "No se pudo procesar la solicitud"
+                });
+            });
+        }
 
 
 
         protected static async actualizar(datos: Autor, res: Response): Promise<any>{
-            await pool.task(async(consulta)=>{
+            pool
+            .task(async(consulta)=>{
                 let queHacer = 1;
                 let respuBase: any;
                 const cubi = await consulta.one(SQL_AUTORES.HOW_MANY, [datos.idAutor]);
-                if(cubi.existe == 1){
+                if(cubi.existe==1){
                     queHacer = 2;
                     respuBase = await consulta.one(SQL_AUTORES.UPDATE, [datos.nombreAutor, datos.apellidoAutor, datos.fechaNacimiento, datos.idAutor]);
                 }
@@ -80,7 +99,7 @@ class AutorDAO{
                         });
                         break;
                 }
-            }).catch((miError:any)=>{
+            }).catch((miError)=>{
                 console.log(miError);
                 res.status(400).json({
                     "mensaje": "No se pudo procesar la solicitud"

@@ -12,6 +12,9 @@ class AutorRuta {
     }
     misRutas() {
         this.apiAutorRuta.get("/getall", AutorControlador_1.default.obtenerAutores);
+        this.apiAutorRuta.post("/add", AutorControlador_1.default.agregarAutor);
+        this.apiAutorRuta.delete("/delete/:idAutor", AutorControlador_1.default.borrarAutor);
+        this.apiAutorRuta.put("/update", AutorControlador_1.default.actualizarAutor);
     }
 }
 const autorRuta = new AutorRuta();
