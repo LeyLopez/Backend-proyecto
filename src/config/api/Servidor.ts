@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import morgan from "morgan";
 import apiAutorRuta from "../../app/autores/route/AutorRuta";
+import apiEstadoRuta from "../../app/estados/route/EstadoRuta";
 
 class Servidor{
     public app: express.Application;
@@ -24,6 +25,7 @@ class Servidor{
 
     public exponerEndPoints():void{
         this.app.use("/api/authors", apiAutorRuta);
+        this.app.use("/api/status", apiEstadoRuta);
     }
 
 
