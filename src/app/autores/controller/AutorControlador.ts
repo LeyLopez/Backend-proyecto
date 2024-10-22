@@ -39,7 +39,7 @@ class AutorControlador extends AutorDAO{
         }else{
             const codigo = Number(req.params.idAutor);
             const objAutor:Autor = new Autor(codigo, "", "", new Date());
-            AutorDAO.borrarAutor(objAutor, res);
+            AutorDAO.borrar(objAutor, res);
         }
     }
 

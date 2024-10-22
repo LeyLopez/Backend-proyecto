@@ -53,7 +53,7 @@ class AutorDAO{
 
 
 
-        protected static async borrarAutor(datos: Autor, res: Response): Promise<any>{
+        protected static async borrar(datos: Autor, res: Response): Promise<any>{
             pool
             .task((consulta)=>{
                 return consulta.result(SQL_AUTORES.DELETE, [datos.idAutor]);
