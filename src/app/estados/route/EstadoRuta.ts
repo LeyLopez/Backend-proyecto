@@ -10,10 +10,10 @@ class EstadoRuta{
     }
 
     private misRutas(){
-        this.apiEstadoRuta.get("/", estadoControlador.obtenerEstados);
-        this.apiEstadoRuta.post("/", estadoControlador.agregarEstado);
-        this.apiEstadoRuta.delete("/:idEstado", estadoControlador.borrarEstado);
-        this.apiEstadoRuta.put("/", estadoControlador.actualizarEstado);
+        this.apiEstadoRuta.get("/getall", estadoControlador.obtenerEstados);
+        this.apiEstadoRuta.post("/add", estadoControlador.agregarEstado);
+        this.apiEstadoRuta.delete("/delete/:idEstado", estadoControlador.borrarEstado);
+        this.apiEstadoRuta.put("/update", estadoControlador.actualizarEstado);
         
     }
 }
