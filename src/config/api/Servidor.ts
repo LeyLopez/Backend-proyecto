@@ -4,6 +4,7 @@ import morgan from "morgan";
 import apiAutorRuta from "../../app/autores/route/AutorRuta";
 import apiEstadoRuta from "../../app/estados/route/EstadoRuta";
 import apiGeneroRuta from "../../app/generos/route/GeneroRuta";
+import apiRolRuta from "../../app/roles/route/RolRuta";
 
 class Servidor{
     public app: express.Application;
@@ -28,6 +29,7 @@ class Servidor{
         this.app.use("/api/authors", apiAutorRuta);
         this.app.use("/api/status", apiEstadoRuta);
         this.app.use("api/genres", apiGeneroRuta);
+        this.app.use("api/role", apiRolRuta);
     }
 
 
