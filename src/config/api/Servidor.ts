@@ -11,6 +11,7 @@ import apiUsuarioRuta from "../../app/usuarios/route/UsuarioRuta";
 import apiPrestamoRuta from "../../app/prestamos/route/PrestamoRuta";
 import apiReservaRuta from "../../app/reservas/route/ReservaRuta";
 import apiHistorialReservasRuta from "../../app/historialEstadosReservas/route/HistorialReservasRuta";
+import apiHistorialPrestamo from "../../app/historialEstadosPrestamos/route/HistorialPrestamoRuta";
 
 class Servidor{
     public app: express.Application;
@@ -42,6 +43,7 @@ class Servidor{
         this.app.use("/api/loans", apiPrestamoRuta);
         this.app.use("/api/reservations", apiReservaRuta);
         this.app.use("/api/reservationshistory", apiHistorialReservasRuta);
+        this.app.use("/api/loanshistory", apiHistorialPrestamo);
 
     }
 
