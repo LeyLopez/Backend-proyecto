@@ -8,6 +8,7 @@ import apiRolRuta from "../../app/roles/route/RolRuta";
 import apiGeneroLibroRuta from "../../app/generosLibros/route/GeneroLibroRuta";
 import apiLibroRuta from "../../app/libros/route/LibroRuta";
 import apiUsuarioRuta from "../../app/usuarios/route/UsuarioRuta";
+import apiPrestamoRuta from "../../app/prestamos/route/PrestamoRuta";
 
 class Servidor{
     public app: express.Application;
@@ -36,6 +37,7 @@ class Servidor{
         this.app.use("api/bookgenre", apiGeneroLibroRuta);
         this.app.use("api/book", apiLibroRuta);
         this.app.use("api/user", apiUsuarioRuta);
+        this.app.use("/api/loans", apiPrestamoRuta);
 
     }
 
