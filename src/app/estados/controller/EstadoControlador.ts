@@ -13,7 +13,7 @@ class EstadoControlador extends EstadoDAO{
     public agregarEstado(req: Request, res: Response): void {
         const objEstado: Estado = new Estado(0, "", "");
         objEstado.nombreEstado = req.body.nombreEstado;
-        objEstado.desccripcionEstado = req.body.desccripcionEstado;
+        objEstado.descripcionEstado = req.body.descripcionEstado;
         EstadoDAO.agregar(objEstado, res);
     }
 
@@ -36,7 +36,7 @@ class EstadoControlador extends EstadoDAO{
         const objEstado:Estado = new Estado(0, "", "");
         objEstado.idEstado = Number(req.body.idEstado);
         objEstado.nombreEstado = req.body.nombreEstado;
-        objEstado.desccripcionEstado = req.body.desccripcionEstado;
+        objEstado.descripcionEstado = req.body.descripcionEstado;
         EstadoDAO.actualizar(objEstado, res);
     }
 

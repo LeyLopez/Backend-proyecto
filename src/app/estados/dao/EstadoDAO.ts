@@ -29,7 +29,7 @@ class EstadoDAO{
             const cubi = await consulta.one(SQL_ESTADO.HOW_MANY_NAME, [datos.nombreEstado]);
             if(cubi.existe == 0){
                 queHacer = 2;
-                respuBase = await consulta.one(SQL_ESTADO.ADD, [datos.nombreEstado, datos.desccripcionEstado]);
+                respuBase = await consulta.one(SQL_ESTADO.ADD, [datos.nombreEstado, datos.descripcionEstado]);
             }
             return {queHacer, respuBase};
         })
@@ -86,7 +86,7 @@ class EstadoDAO{
             const cubi = await consulta.one(SQL_ESTADO.HOW_MANY, [datos.idEstado]);
             if(cubi.existe==1){
                 queHacer = 2;
-                respuBase = await consulta.one(SQL_ESTADO.UPDATE, [datos.nombreEstado, datos.desccripcionEstado, datos.idEstado]);
+                respuBase = await consulta.one(SQL_ESTADO.UPDATE, [datos.nombreEstado, datos.descripcionEstado, datos.idEstado]);
             }
             return {queHacer, respuBase};
         })

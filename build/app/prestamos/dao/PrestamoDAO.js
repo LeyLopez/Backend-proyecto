@@ -12,19 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const AutorSQL_1 = require("../repository/AutorSQL");
+const PrestamoSQL_1 = require("../repository/PrestamoSQL");
 const db_conection_1 = __importDefault(require("../../../config/connection/db_conection"));
-class AutorDAO {
+class PrestamoDAO {
     static obtenerTodo(params, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield db_conection_1.default.result(AutorSQL_1.SQL_AUTORES.GET_ALL, params)
+            yield db_conection_1.default.result(PrestamoSQL_1.SQL_PRESTAMO.GET_ALL, params)
                 .then((resultado) => {
                 res.status(200).json(resultado.rows);
             })
                 .catch((miError) => {
                 console.log(miError);
                 res.status(400).json({
-                    "mensaje": "Error al obtener los autores"
+                    "mensaje": "Error al obtener los prestamos"
                 });
             });
         });
@@ -34,10 +34,16 @@ class AutorDAO {
             yield db_conection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(AutorSQL_1.SQL_AUTORES.HOW_MANY_NAME_LASTNAME, [datos.nombreAutor, datos.apellidoAutor]);
+                const cubi = yield consulta.one(PrestamoSQL_1.SQL_PRESTAMO.HOW_MANY_USER, [datos.idUsuario, datos.idLibro]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.one(AutorSQL_1.SQL_AUTORES.ADD, [datos.nombreAutor, datos.apellidoAutor, datos.fechaNacimiento]);
+                    respuBase = yield consulta.one(PrestamoSQL_1.SQL_PRESTAMO.ADD, [
+                        datos.fechaPrestamo,
+                        datos.fechaDevolucion,
+                        datos.idUsuario,
+                        datos.idLibro,
+                        datos.idEstado
+                    ]);
                 }
                 return { queHacer, respuBase };
             }))
@@ -45,19 +51,19 @@ class AutorDAO {
                 switch (queHacer) {
                     case 1:
                         res.status(400).json({
-                            "mensaje": "El autor ya existe"
+                            respuesta: "El usuario ya tiene prestado este libro"
                         });
                         break;
                     default:
                         res.status(200).json({
-                            "mensaje": "Autor agregado"
+                            respuesta: "Prestamo agregado"
                         });
                         break;
                 }
             }).catch((miError) => {
                 console.log(miError);
                 res.status(400).json({
-                    "mensaje": "No se pudo procesar la solicitud"
+                    "mensaje": "Error al agregar el prestamo"
                 });
             });
         });
@@ -66,11 +72,11 @@ class AutorDAO {
         return __awaiter(this, void 0, void 0, function* () {
             db_conection_1.default
                 .task((consulta) => {
-                return consulta.result(AutorSQL_1.SQL_AUTORES.DELETE, [datos.idAutor]);
+                return consulta.result(PrestamoSQL_1.SQL_PRESTAMO.DELETE, [datos.idPrestamo]);
             })
                 .then((respuesta) => {
                 res.status(200).json({
-                    "mensaje": "Autor eliminado",
+                    "mensaje": "Prestamo eliminado",
                     info: respuesta.rowCount,
                 });
             })
@@ -88,10 +94,17 @@ class AutorDAO {
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(AutorSQL_1.SQL_AUTORES.HOW_MANY, [datos.idAutor]);
+                const cubi = yield consulta.one(PrestamoSQL_1.SQL_PRESTAMO.HOW_MANY, [datos.idPrestamo]);
                 if (cubi.existe == 1) {
                     queHacer = 2;
-                    respuBase = yield consulta.one(AutorSQL_1.SQL_AUTORES.UPDATE, [datos.nombreAutor, datos.apellidoAutor, datos.fechaNacimiento, datos.idAutor]);
+                    respuBase = yield consulta.one(PrestamoSQL_1.SQL_PRESTAMO.UPDATE, [
+                        datos.fechaPrestamo,
+                        datos.fechaDevolucion,
+                        datos.idUsuario,
+                        datos.idLibro,
+                        datos.idEstado,
+                        datos.idPrestamo
+                    ]);
                 }
                 return { queHacer, respuBase };
             }))
@@ -99,22 +112,22 @@ class AutorDAO {
                 switch (queHacer) {
                     case 1:
                         res.status(400).json({
-                            "mensaje": "El autor no existe"
+                            respuesta: "El prestamo no existe"
                         });
                         break;
                     default:
                         res.status(200).json({
-                            "mensaje": "Autor actualizado"
+                            respuesta: "Prestamo actualizado"
                         });
                         break;
                 }
             }).catch((miError) => {
                 console.log(miError);
                 res.status(400).json({
-                    "mensaje": "No se pudo procesar la solicitud"
+                    "mensaje": "Error al actualizar el prestamo"
                 });
             });
         });
     }
 }
-exports.default = AutorDAO;
+exports.default = PrestamoDAO;

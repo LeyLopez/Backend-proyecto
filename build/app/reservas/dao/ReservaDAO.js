@@ -12,19 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const AutorSQL_1 = require("../repository/AutorSQL");
+const ReservaSQL_1 = require("../repository/ReservaSQL");
 const db_conection_1 = __importDefault(require("../../../config/connection/db_conection"));
-class AutorDAO {
+class ReservaDAO {
     static obtenerTodo(params, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield db_conection_1.default.result(AutorSQL_1.SQL_AUTORES.GET_ALL, params)
+            yield db_conection_1.default.result(ReservaSQL_1.SQL_RESERVA.GET_ALL, params)
                 .then((resultado) => {
                 res.status(200).json(resultado.rows);
             })
                 .catch((miError) => {
                 console.log(miError);
                 res.status(400).json({
-                    "mensaje": "Error al obtener los autores"
+                    "mensaje": "Error al obtener las reservas"
                 });
             });
         });
@@ -34,10 +34,16 @@ class AutorDAO {
             yield db_conection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(AutorSQL_1.SQL_AUTORES.HOW_MANY_NAME_LASTNAME, [datos.nombreAutor, datos.apellidoAutor]);
+                const cubi = yield consulta.one(ReservaSQL_1.SQL_RESERVA.HOW_MANY_USER, [datos.idUsuario, datos.idLibro]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.one(AutorSQL_1.SQL_AUTORES.ADD, [datos.nombreAutor, datos.apellidoAutor, datos.fechaNacimiento]);
+                    respuBase = yield consulta.one(ReservaSQL_1.SQL_RESERVA.ADD, [
+                        datos.fechaReserva,
+                        datos.fechaFinReserva,
+                        datos.idUsuario,
+                        datos.idLibro,
+                        datos.idEstado
+                    ]);
                 }
                 return { queHacer, respuBase };
             }))
@@ -45,53 +51,61 @@ class AutorDAO {
                 switch (queHacer) {
                     case 1:
                         res.status(400).json({
-                            "mensaje": "El autor ya existe"
+                            respuesta: "El usuario ya tiene reservado este libro"
                         });
                         break;
                     default:
                         res.status(200).json({
-                            "mensaje": "Autor agregado"
+                            respuesta: "Reserva agregada"
                         });
                         break;
                 }
             }).catch((miError) => {
                 console.log(miError);
                 res.status(400).json({
-                    "mensaje": "No se pudo procesar la solicitud"
+                    "mensaje": "Error al agregar la reserva"
                 });
             });
         });
     }
     static borrar(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            db_conection_1.default
-                .task((consulta) => {
-                return consulta.result(AutorSQL_1.SQL_AUTORES.DELETE, [datos.idAutor]);
-            })
-                .then((respuesta) => {
-                res.status(200).json({
-                    "mensaje": "Autor eliminado",
-                    info: respuesta.rowCount,
-                });
-            })
-                .catch((miError) => {
+            yield db_conection_1.default.result(ReservaSQL_1.SQL_RESERVA.DELETE, [datos.idReserva])
+                .then((resultado) => {
+                if (resultado.rowCount == 0) {
+                    res.status(400).json({
+                        "mensaje": "La reserva no existe"
+                    });
+                }
+                else {
+                    res.status(200).json({
+                        "mensaje": "Reserva eliminada"
+                    });
+                }
+            }).catch((miError) => {
                 console.log(miError);
                 res.status(400).json({
-                    respuesta: "No se pudo procesar la solicitud"
+                    "mensaje": "Error al eliminar la reserva"
                 });
             });
         });
     }
     static actualizar(datos, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            db_conection_1.default
-                .task((consulta) => __awaiter(this, void 0, void 0, function* () {
+            yield db_conection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(AutorSQL_1.SQL_AUTORES.HOW_MANY, [datos.idAutor]);
+                const cubi = yield consulta.one(ReservaSQL_1.SQL_RESERVA.HOW_MANY, [datos.idReserva]);
                 if (cubi.existe == 1) {
                     queHacer = 2;
-                    respuBase = yield consulta.one(AutorSQL_1.SQL_AUTORES.UPDATE, [datos.nombreAutor, datos.apellidoAutor, datos.fechaNacimiento, datos.idAutor]);
+                    respuBase = yield consulta.one(ReservaSQL_1.SQL_RESERVA.UPDATE, [
+                        datos.fechaReserva,
+                        datos.fechaFinReserva,
+                        datos.idUsuario,
+                        datos.idLibro,
+                        datos.idEstado,
+                        datos.idReserva
+                    ]);
                 }
                 return { queHacer, respuBase };
             }))
@@ -99,22 +113,22 @@ class AutorDAO {
                 switch (queHacer) {
                     case 1:
                         res.status(400).json({
-                            "mensaje": "El autor no existe"
+                            respuesta: "La reserva no existe"
                         });
                         break;
                     default:
                         res.status(200).json({
-                            "mensaje": "Autor actualizado"
+                            respuesta: "Reserva actualizada"
                         });
                         break;
                 }
             }).catch((miError) => {
                 console.log(miError);
                 res.status(400).json({
-                    "mensaje": "No se pudo procesar la solicitud"
+                    "mensaje": "Error al actualizar la reserva"
                 });
             });
         });
     }
 }
-exports.default = AutorDAO;
+exports.default = ReservaDAO;

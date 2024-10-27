@@ -12,19 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const AutorSQL_1 = require("../repository/AutorSQL");
+const GeneroSQL_1 = require("../repository/GeneroSQL");
 const db_conection_1 = __importDefault(require("../../../config/connection/db_conection"));
-class AutorDAO {
+class GeneroDAO {
     static obtenerTodo(params, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield db_conection_1.default.result(AutorSQL_1.SQL_AUTORES.GET_ALL, params)
+            yield db_conection_1.default.result(GeneroSQL_1.SQL_GENERO.GET_ALL, params)
                 .then((resultado) => {
                 res.status(200).json(resultado.rows);
             })
                 .catch((miError) => {
                 console.log(miError);
                 res.status(400).json({
-                    "mensaje": "Error al obtener los autores"
+                    "mensaje": "Error al obtener los generos"
                 });
             });
         });
@@ -34,10 +34,10 @@ class AutorDAO {
             yield db_conection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(AutorSQL_1.SQL_AUTORES.HOW_MANY_NAME_LASTNAME, [datos.nombreAutor, datos.apellidoAutor]);
+                const cubi = yield consulta.one(GeneroSQL_1.SQL_GENERO.HOW_MANY_NAME, [datos.nombreGenero]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.one(AutorSQL_1.SQL_AUTORES.ADD, [datos.nombreAutor, datos.apellidoAutor, datos.fechaNacimiento]);
+                    respuBase = yield consulta.one(GeneroSQL_1.SQL_GENERO.ADD, [datos.nombreGenero]);
                 }
                 return { queHacer, respuBase };
             }))
@@ -45,19 +45,19 @@ class AutorDAO {
                 switch (queHacer) {
                     case 1:
                         res.status(400).json({
-                            "mensaje": "El autor ya existe"
+                            respuesta: "El género ya existe"
                         });
                         break;
                     default:
                         res.status(200).json({
-                            "mensaje": "Autor agregado"
+                            respuesta: "Género agregado"
                         });
                         break;
                 }
             }).catch((miError) => {
                 console.log(miError);
                 res.status(400).json({
-                    "mensaje": "No se pudo procesar la solicitud"
+                    respuesta: "No se pudo procesar la solicitud"
                 });
             });
         });
@@ -66,11 +66,11 @@ class AutorDAO {
         return __awaiter(this, void 0, void 0, function* () {
             db_conection_1.default
                 .task((consulta) => {
-                return consulta.result(AutorSQL_1.SQL_AUTORES.DELETE, [datos.idAutor]);
+                return consulta.result(GeneroSQL_1.SQL_GENERO.DELETE, [datos.idGenero]);
             })
                 .then((respuesta) => {
                 res.status(200).json({
-                    "mensaje": "Autor eliminado",
+                    "mensaje": "Genero eliminado",
                     info: respuesta.rowCount,
                 });
             })
@@ -88,10 +88,10 @@ class AutorDAO {
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(AutorSQL_1.SQL_AUTORES.HOW_MANY, [datos.idAutor]);
+                const cubi = yield consulta.one(GeneroSQL_1.SQL_GENERO.HOW_MANY, [datos.idGenero]);
                 if (cubi.existe == 1) {
                     queHacer = 2;
-                    respuBase = yield consulta.one(AutorSQL_1.SQL_AUTORES.UPDATE, [datos.nombreAutor, datos.apellidoAutor, datos.fechaNacimiento, datos.idAutor]);
+                    respuBase = yield consulta.one(GeneroSQL_1.SQL_GENERO.UPDATE, [datos.nombreGenero, datos.idGenero]);
                 }
                 return { queHacer, respuBase };
             }))
@@ -99,22 +99,22 @@ class AutorDAO {
                 switch (queHacer) {
                     case 1:
                         res.status(400).json({
-                            "mensaje": "El autor no existe"
+                            respuesta: "El género no existe"
                         });
                         break;
                     default:
                         res.status(200).json({
-                            "mensaje": "Autor actualizado"
+                            respuesta: "Género actualizado"
                         });
                         break;
                 }
             }).catch((miError) => {
                 console.log(miError);
                 res.status(400).json({
-                    "mensaje": "No se pudo procesar la solicitud"
+                    respuesta: "No se pudo procesar la solicitud"
                 });
             });
         });
     }
 }
-exports.default = AutorDAO;
+exports.default = GeneroDAO;

@@ -28,7 +28,7 @@ class AutorControlador extends AutorDAO_1.default {
         else {
             const codigo = Number(req.params.idAutor);
             const objAutor = new Autor_1.default(codigo, "", "", new Date());
-            AutorDAO_1.default.borrarAutor(objAutor, res);
+            AutorDAO_1.default.borrar(objAutor, res);
         }
     }
     actualizarAutor(req, res) {

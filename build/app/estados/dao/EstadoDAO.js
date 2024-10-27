@@ -12,19 +12,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const AutorSQL_1 = require("../repository/AutorSQL");
+const EstadoSQL_1 = require("../repository/EstadoSQL");
 const db_conection_1 = __importDefault(require("../../../config/connection/db_conection"));
-class AutorDAO {
+class EstadoDAO {
     static obtenerTodo(params, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            yield db_conection_1.default.result(AutorSQL_1.SQL_AUTORES.GET_ALL, params)
+            yield db_conection_1.default.result(EstadoSQL_1.SQL_ESTADO.GET_ALL, params)
                 .then((resultado) => {
                 res.status(200).json(resultado.rows);
             })
                 .catch((miError) => {
                 console.log(miError);
                 res.status(400).json({
-                    "mensaje": "Error al obtener los autores"
+                    "mensaje": "Error al obtener los estados"
                 });
             });
         });
@@ -34,10 +34,10 @@ class AutorDAO {
             yield db_conection_1.default.task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(AutorSQL_1.SQL_AUTORES.HOW_MANY_NAME_LASTNAME, [datos.nombreAutor, datos.apellidoAutor]);
+                const cubi = yield consulta.one(EstadoSQL_1.SQL_ESTADO.HOW_MANY_NAME, [datos.nombreEstado]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.one(AutorSQL_1.SQL_AUTORES.ADD, [datos.nombreAutor, datos.apellidoAutor, datos.fechaNacimiento]);
+                    respuBase = yield consulta.one(EstadoSQL_1.SQL_ESTADO.ADD, [datos.nombreEstado, datos.descripcionEstado]);
                 }
                 return { queHacer, respuBase };
             }))
@@ -45,12 +45,12 @@ class AutorDAO {
                 switch (queHacer) {
                     case 1:
                         res.status(400).json({
-                            "mensaje": "El autor ya existe"
+                            "mensaje": "El estado ya existe"
                         });
                         break;
                     default:
                         res.status(200).json({
-                            "mensaje": "Autor agregado"
+                            "mensaje": "Estado agregado"
                         });
                         break;
                 }
@@ -66,11 +66,11 @@ class AutorDAO {
         return __awaiter(this, void 0, void 0, function* () {
             db_conection_1.default
                 .task((consulta) => {
-                return consulta.result(AutorSQL_1.SQL_AUTORES.DELETE, [datos.idAutor]);
+                return consulta.result(EstadoSQL_1.SQL_ESTADO.DELETE, [datos.idEstado]);
             })
                 .then((respuesta) => {
                 res.status(200).json({
-                    "mensaje": "Autor eliminado",
+                    "mensaje": "Estado eliminado",
                     info: respuesta.rowCount,
                 });
             })
@@ -88,10 +88,10 @@ class AutorDAO {
                 .task((consulta) => __awaiter(this, void 0, void 0, function* () {
                 let queHacer = 1;
                 let respuBase;
-                const cubi = yield consulta.one(AutorSQL_1.SQL_AUTORES.HOW_MANY, [datos.idAutor]);
+                const cubi = yield consulta.one(EstadoSQL_1.SQL_ESTADO.HOW_MANY, [datos.idEstado]);
                 if (cubi.existe == 1) {
                     queHacer = 2;
-                    respuBase = yield consulta.one(AutorSQL_1.SQL_AUTORES.UPDATE, [datos.nombreAutor, datos.apellidoAutor, datos.fechaNacimiento, datos.idAutor]);
+                    respuBase = yield consulta.one(EstadoSQL_1.SQL_ESTADO.UPDATE, [datos.nombreEstado, datos.descripcionEstado, datos.idEstado]);
                 }
                 return { queHacer, respuBase };
             }))
@@ -99,12 +99,12 @@ class AutorDAO {
                 switch (queHacer) {
                     case 1:
                         res.status(400).json({
-                            "mensaje": "El autor no existe"
+                            "mensaje": "El estado no existe"
                         });
                         break;
                     default:
                         res.status(200).json({
-                            "mensaje": "Autor actualizado"
+                            "mensaje": "Estado actualizado"
                         });
                         break;
                 }
@@ -117,4 +117,4 @@ class AutorDAO {
         });
     }
 }
-exports.default = AutorDAO;
+exports.default = EstadoDAO;

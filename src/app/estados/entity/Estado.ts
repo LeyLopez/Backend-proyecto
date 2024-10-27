@@ -1,13 +1,13 @@
 class Estado{
     public idEstado: number;
     public nombreEstado: string;
-    public desccripcionEstado: string;
+    public descripcionEstado: string;
 
 
     constructor(idEstado: number, nombreEstado: string, desccripcionEstado: string){
         this.idEstado = idEstado;
         this.nombreEstado = nombreEstado;
-        this.desccripcionEstado = desccripcionEstado;
+        this.descripcionEstado = desccripcionEstado;
     }
 
 
