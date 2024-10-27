@@ -28,7 +28,7 @@ class RolDAO{
             const cubi = await consulta.one(SQL_ROL.HOW_MANY_NAME, [datos.nombreRol]);
             if(cubi.existe == 0){
                 queHacer = 2;
-                respuBase = await consulta.one(SQL_ROL.ADD, [datos.nombreRol]);
+                respuBase = await consulta.one(SQL_ROL.ADD, [datos.nombreRol, datos.descripcionRol]);
             }
             return {queHacer, respuBase};
         })

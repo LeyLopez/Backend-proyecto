@@ -6,13 +6,13 @@ class Usuario{
     emailUsuario: string;
     claveUsuario: string;
     tipoDocumentoUsuario: string;
-    numeroDocumentoUsuario: string;
+    numeroDocumentoUsuario: number;
     fechaNacimientoUsuario: Date;
     telefonoUsuario: string;
     direccionUsuario: string;
     idRol: number;
 
-    constructor(idUsuario: number, nombreUsuario: string, apellidoUsuario: string, emailUsuario: string, claveUsuario: string, tipoDocumentoUsuario: string, numeroDocumentoUsuario: string, fechaNacimientoUsuario: Date, telefonoUsuario: string, direccionUsuario: string, idRol: number){
+    constructor(idUsuario: number, nombreUsuario: string, apellidoUsuario: string, emailUsuario: string, claveUsuario: string, tipoDocumentoUsuario: string, numeroDocumentoUsuario: number, fechaNacimientoUsuario: Date, telefonoUsuario: string, direccionUsuario: string, idRol: number){
         this.idUsuario = idUsuario;
         this.nombreUsuario = nombreUsuario;
         this.apellidoUsuario = apellidoUsuario;

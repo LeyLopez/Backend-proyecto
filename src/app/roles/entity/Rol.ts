@@ -1,10 +1,10 @@
 class Rol{
-    idRol: Number;
-    nombreRol: String;
-    descripcionRol: String;
+    idRol: number;
+    nombreRol: string;
+    descripcionRol: string;
 
     
-    constructor(idRol: Number, nombreRol: String, descripcionRol: String){
+    constructor(idRol: number, nombreRol: string, descripcionRol: string){
         this.idRol = idRol;
         this.nombreRol = nombreRol;
         this.descripcionRol = descripcionRol;

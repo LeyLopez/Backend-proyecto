@@ -1,15 +1,15 @@
 class Libro{
-    idLibro : Number;
+    idLibro : number;
     tituloLibro : string;
     resumenLibro: string;
     urlPortadaLibro: string;
     tipoLibro: string;
     fechaPublicacion: Date;
-    cantidadEjemplares: Number;
-    idAutor: Number;
+    cantidadEjemplares: number;
+    idAutor: number;
 
 
-    constructor(idLibro: Number, tituloLibro: string, resumenLibro: string, urlPortadaLibro: string, tipoLibro: string, fechaPublicacion: Date, cantidadEjemplares: Number, idAutor: Number){
+    constructor(idLibro: number, tituloLibro: string, resumenLibro: string, urlPortadaLibro: string, tipoLibro: string, fechaPublicacion: Date, cantidadEjemplares: number, idAutor: number){
         this.idLibro = idLibro;
         this.tituloLibro = tituloLibro;
         this.resumenLibro = resumenLibro;

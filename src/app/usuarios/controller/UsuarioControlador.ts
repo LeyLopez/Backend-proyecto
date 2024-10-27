@@ -10,7 +10,7 @@ class UsuarioControlador extends UsuarioDAO{
     }
 
     public agregarUsuario(req: Request, res: Response): void {
-        const ObjUsuario: Usuario = new Usuario(0,"","", "", "", "", "", new Date(), "", "", 0);
+        const ObjUsuario: Usuario = new Usuario(0,"","", "", "", "", 0, new Date(), "", "", 0);
         ObjUsuario.nombreUsuario = req.body.nombreUsuario;
         ObjUsuario.apellidoUsuario = req.body.apellidoUsuario;
         ObjUsuario.emailUsuario = req.body.emailUsuario;
@@ -35,7 +35,7 @@ class UsuarioControlador extends UsuarioDAO{
             });
         }else{
             const codigo = Number(req.params.idUsuario);
-            const ObjUsuario:Usuario = new Usuario(codigo, "", "", "", "", "", "", new Date(), "", "", 0);
+            const ObjUsuario:Usuario = new Usuario(codigo, "", "", "", "", "", 0, new Date(), "", "", 0);
             UsuarioDAO.borrar(ObjUsuario, res);
         }
 
@@ -44,7 +44,7 @@ class UsuarioControlador extends UsuarioDAO{
 
 
     public actualizarUsuario(req: Request, res: Response):void{
-        const ObjUsuario:Usuario = new Usuario(0,"","", "", "", "", "", new Date(), "", "", 0);
+        const ObjUsuario:Usuario = new Usuario(0,"","", "", "", "", 0, new Date(), "", "", 0);
         ObjUsuario.idUsuario = Number(req.body.idUsuario);
         ObjUsuario.nombreUsuario = req.body.nombreUsuario;
         ObjUsuario.apellidoUsuario = req.body.apellidoUsuario;

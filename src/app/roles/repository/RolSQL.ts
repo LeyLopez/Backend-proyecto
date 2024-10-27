@@ -2,7 +2,7 @@ export const SQL_ROL ={
 
     GET_ALL: "SELECT id_rol, nombre_rol, descripcion_rol FROM Roles",
 
-    ADD: "INSERT INTO Roles(nombre_rol, descripcion_rol) VALUES($1, $2) RETURNING id_genero",
+    ADD: "INSERT INTO Roles(nombre_rol, descripcion_rol) VALUES($1, $2) RETURNING id_rol",
 
     HOW_MANY: "SELECT COUNT(*) AS existe FROM Roles WHERE id_rol = $1",
 

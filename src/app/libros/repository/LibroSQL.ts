@@ -3,7 +3,7 @@ export const SQL_LIBRO = {
     GET_ALL: "SELECT * FROM Libros",
 
     HOW_MANY:
-    "SELECT COUNT(*) AS existe FROM Libros WHERE id_autor = $1",
+    "SELECT COUNT(*) AS existe FROM Libros WHERE id_libro = $1",
 
     HOW_MANY_NAME:
     "SELECT COUNT(*) AS existe FROM Libros WHERE titulo_libro = $1",

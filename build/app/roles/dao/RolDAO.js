@@ -37,7 +37,7 @@ class RolDAO {
                 const cubi = yield consulta.one(RolSQL_1.SQL_ROL.HOW_MANY_NAME, [datos.nombreRol]);
                 if (cubi.existe == 0) {
                     queHacer = 2;
-                    respuBase = yield consulta.one(RolSQL_1.SQL_ROL.ADD, [datos.nombreRol]);
+                    respuBase = yield consulta.one(RolSQL_1.SQL_ROL.ADD, [datos.nombreRol, datos.descripcionRol]);
                 }
                 return { queHacer, respuBase };
             }))
