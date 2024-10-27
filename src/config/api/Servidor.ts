@@ -35,11 +35,11 @@ class Servidor{
     public exponerEndPoints():void{
         this.app.use("/api/authors", apiAutorRuta);
         this.app.use("/api/status", apiEstadoRuta);
-        this.app.use("api/genres", apiGeneroRuta);
-        this.app.use("api/role", apiRolRuta);
-        this.app.use("api/bookgenre", apiGeneroLibroRuta);
-        this.app.use("api/book", apiLibroRuta);
-        this.app.use("api/user", apiUsuarioRuta);
+        this.app.use("/api/genres", apiGeneroRuta);
+        this.app.use("/api/role", apiRolRuta);
+        this.app.use("/api/bookgenre", apiGeneroLibroRuta);
+        this.app.use("/api/book", apiLibroRuta);
+        this.app.use("/api/user", apiUsuarioRuta);
         this.app.use("/api/loans", apiPrestamoRuta);
         this.app.use("/api/reservations", apiReservaRuta);
         this.app.use("/api/reservationshistory", apiHistorialReservasRuta);

@@ -1,9 +1,9 @@
 class Genero{
-    public idGenero: Number
-    public nombreGenero: String;
+    public idGenero: number
+    public nombreGenero: string;
 
 
-    constructor(idGenero: Number, nombreGenero: String){
+    constructor(idGenero: number, nombreGenero: string){
         this.idGenero = idGenero;
         this.nombreGenero = nombreGenero;
     }

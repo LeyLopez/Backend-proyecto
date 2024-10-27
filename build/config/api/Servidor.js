@@ -33,11 +33,11 @@ class Servidor {
     exponerEndPoints() {
         this.app.use("/api/authors", AutorRuta_1.default);
         this.app.use("/api/status", EstadoRuta_1.default);
-        this.app.use("api/genres", GeneroRuta_1.default);
-        this.app.use("api/role", RolRuta_1.default);
-        this.app.use("api/bookgenre", GeneroLibroRuta_1.default);
-        this.app.use("api/book", LibroRuta_1.default);
-        this.app.use("api/user", UsuarioRuta_1.default);
+        this.app.use("/api/genres", GeneroRuta_1.default);
+        this.app.use("/api/role", RolRuta_1.default);
+        this.app.use("/api/bookgenre", GeneroLibroRuta_1.default);
+        this.app.use("/api/book", LibroRuta_1.default);
+        this.app.use("/api/user", UsuarioRuta_1.default);
         this.app.use("/api/loans", PrestamoRuta_1.default);
         this.app.use("/api/reservations", ReservaRuta_1.default);
         this.app.use("/api/reservationshistory", HistorialReservasRuta_1.default);

@@ -7,5 +7,5 @@ exports.SQL_GENERO = {
     HOW_MANY: "SELECT COUNT(*) AS existe FROM Generos WHERE id_genero = $1",
     HOW_MANY_NAME: "SELECT COUNT(*) AS existe FROM Generos WHERE nombre_genero = $1",
     DELETE: "DELETE FROM Generos WHERE id_genero = $1",
-    UPDATE: "UPDATE Generos SET nombre_genero = $1 WHERE id_genero = $2 RETURNING id_estado"
+    UPDATE: "UPDATE Generos SET nombre_genero = $1 WHERE id_genero = $2 RETURNING id_genero"
 };

@@ -11,7 +11,7 @@ export const SQL_GENERO ={
 
     DELETE: "DELETE FROM Generos WHERE id_genero = $1",
     
-    UPDATE: "UPDATE Generos SET nombre_genero = $1 WHERE id_genero = $2 RETURNING id_estado"
+    UPDATE: "UPDATE Generos SET nombre_genero = $1 WHERE id_genero = $2 RETURNING id_genero"
 
 
 }
